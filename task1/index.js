@@ -1,28 +1,24 @@
-const test = {
+const test = [{
   name: "John",
   address: {
     city: "London",
     country: "UK",
   },
-};
-  
-const getValues = (obj) => {
-  let res = {};
+  num: [1, 2],
+}];
 
+const getValues = (obj) => {
   Object.keys(obj).forEach(key => {
     if (typeof obj[key] === "object") {
-      // res = {...res, [key]: getValues(obj[key])};
-      res[key] = getValues(obj[key]);
+      obj[key] = getValues(obj[key]);
     } else {
-      // res = {...res, [key]: obj[key]};
-      res[key] = obj[key];
-      return res;
+      obj[key] = obj[key];
+      return obj;
     }
-  })
-
-  return res;
+  });
+  return obj;
 };
-  
-const result = getValues(test);
-  
+
+const result = getValues(test)
+ 
 console.log(result)
