@@ -8,17 +8,25 @@ const test = [{
 }];
 
 const getValues = (obj) => {
-  Object.assign(obj).forEach(key => {
-    if (typeof obj[key] === "object") {
-      obj[key] = getValues(obj[key]);
-    } else {
-      obj[key] = obj[key];
-      return obj;
-    }
-  });
-  return obj;
+  if (obj === null) {
+    return null
+  }
+
+  let result = Object.assign({}, obj);
+
+  Object.keys(result).forEach(key => 
+    (result[key] = typeof obj[key] === "object" ? 
+    getValues(obj[key]) : obj[key]));
+
+  if (Array.isArray(obj) && obj.length) {
+    return (result.length = obj.length) && Array.from(result)
+  } else if(Array.isArray(obj)){
+    return Array.from(obj)
+  } else {
+    return result
+  }
 };
 
-const result = getValues(test)
+const clone = getValues(test)
  
-console.log(result)
+console.log(clone)
