@@ -10,13 +10,11 @@ const compareStrings = (array) => {
 
 		const nextItem = arr[index + 1];
 
-    if (
-			item[0] === nextItem[0] && 
-			item[item.length - 1] === nextItem[nextItem.length - 1]) {
-				res.push(true);
-			} else {
-      res.push(false);
-		}
+    const valueRes = item[0] === nextItem[0] && 
+			item[item.length - 1] === 
+      nextItem[nextItem.length - 1]
+
+    res.push(valueRes)
   });
   return res;
 };
